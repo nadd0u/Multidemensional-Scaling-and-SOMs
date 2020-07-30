@@ -9,9 +9,13 @@ subtitle: MSDS 411
 ---
 
 ```{r setup, include=FALSE}
-college <- read.csv(file="file:///Users/nadianoui-mehidi/Desktop/college_acceptance.csv",head=TRUE,sep=",")
 
-recidivism <- read.csv(file="file:///Users/nadianoui-mehidi/Desktop/recidivism.csv",head=TRUE,sep=",")
+library(wooldridge)
+data('recid')
+
+#college <- read.csv(file="file:///Users/nadianoui-mehidi/Desktop/college_acceptance.csv",head=TRUE,sep=",")
+
+#recidivism <- read.csv(file="file:///Users/nadianoui-mehidi/Desktop/recidivism.csv",head=TRUE,sep=",")
 library(dplyr)
 library(skimr)
 library(cluster)
@@ -50,8 +54,9 @@ The 18 variables including in our data set are:
 18. log_duration log(duration)
 
 
+
 ```{r}
-glimpse(recidivism)
+glimpse(recid)
 ```
 There are 9 binary, 8 interval and 1 continuous variable in our dataset. We normally dont want to include categorical variables when multidemenisional scaling but since our categorical variables are binary their distance measures are still meaningful and we can keep them in. 
 
@@ -72,7 +77,7 @@ age: in months.
 We created a new dataframe with only the variables we are using. Since our variables have different scales, we also standardize the records so that all variables have an equal opportunity to influence the patterns.
 
 ```{r}
-df = subset(recidivism, select = -c(super, property, person, rules, follow, ldurat))
+df = subset(recid, select = -c(super, property, person, rules, follow, ldurat))
 ```
 
 
@@ -149,10 +154,10 @@ ggplot(MDS_xy, aes(Dimension1, Dimension2, color = durat)) + geom_point() + them
 ##Ramsey’s method
 
 
-#COMPONENT 2: Self Organizing Maps
+# COMPONENT 2: Self Organizing Maps
 We are using the College Acceptance data set to create a Self Organizing Map. This dataset contains information for college acceptance into various engineering programs for 400 students.  
 
-##5)	Exploratory Data Analysis and Data Preparation 
+## Exploratory Data Analysis and Data Preparation 
 This data set represents college applicants. 
 The variables included are:
 •	admit (binary)  0 = Not admitted, 1 = Admitted
@@ -163,7 +168,10 @@ The variables included are:
 Since the GRE/GPA/Rank are explanatory variables for Admit, we will eliminate the Admit variable from the dataset and focus our SOM on GRE, GPA, and Rank. We have also normalized the data because the variables have different scales and we dont want GRE to have outsized influence in our model. The summary of our data after normalization is below:
 
 ```{r}
-#X <- scale(college)
+college = read.csv('https://stats.idre.ucla.edu/stat/data/binary.csv')
+#print(college)
+#college <- read.csv("http://www.ats.ucla.edu/stat/data/binary.csv")
+X <- scale(college)
 X <- scale(college[,-1])
 summary(X)
 ```
