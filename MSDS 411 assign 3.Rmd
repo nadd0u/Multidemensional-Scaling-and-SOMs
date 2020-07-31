@@ -3,8 +3,8 @@ title: 'Multidimensional Scaling and Self-Organizing Maps'
 author: "Nadia Noui-Mehidi"
 date: "10/29/2019"
 output:
-  word_document: default
-  pdf_document: default
+  github_document: default
+  rmarkdown::github_documen: default
 subtitle: MSDS 411
 ---
 
